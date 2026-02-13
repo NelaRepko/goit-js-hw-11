@@ -14,11 +14,29 @@ function createGallery(images) {
 const galleryContainer = document.querySelector('.gallery');
 
   const markup = images.map(image => `
-  <li class="gallery-item">
-    <a class="gallery-link" href="${image.largeImageURL}">  <!-- велике фото для Lightbox -->
-      <img class="gallery-image" src="${image.previewURL}" alt="${image.tags}"> <!-- мініатюра та тег як alt -->
-    </a>
-   </li>
+<li class="gallery-item">
+  <a class="gallery-link" href="${image.largeImageURL}">
+    <img 
+      class="gallery-image" 
+      src="${image.webformatURL}" 
+      alt="${image.tags}"
+    />
+  </a>
+  <div class="info">
+    <div class="info-titles">
+      <p>Likes</p>
+      <p>Views</p>
+      <p>Comments</p>
+      <p>Downloads</p>
+    </div>
+    <div class="info-values">
+      <p>${image.likes}</p>
+      <p>${image.views}</p>
+      <p>${image.comments}</p>
+      <p>${image.downloads}</p>
+    </div>
+  </div>
+</li>
   `).join('');
 
   galleryContainer.innerHTML = markup; //додаємо елементи галереї в контейнер
@@ -38,22 +56,48 @@ const galleryContainer = document.querySelector('.gallery');
   items.forEach(item => {
     item.style.flex = "1 1 360px";
     item.style.height = "200px";
-    item.style.maxWidth = "100%";
+//    item.style.maxWidth = "100%";
     item.style.border = "1px solid #808080";
     item.style.overflow = "hidden";
-    item.style.justifyContent = "center";
-    item.style.alignItems = "center";
+//    item.style.justifyContent = "center";
+//    item.style.alignItems = "center";
     item.style.width = "360px";
-
+    item.style.display = "flex";
+    item.style.flexDirection = "column";
+  });
     // --- Стилі для img ---
 const imgs = galleryContainer.querySelectorAll("img");
 imgs.forEach(img => {
   img.style.width = "100%";
-  img.style.height = "100%";
+//  img.style.height = "100%";
+  img.style.height = "160px";
   img.style.objectFit = "cover"; // картинка займає всю li
   img.style.display = "block";
 });
-  });
+
+const infos = galleryContainer.querySelectorAll(".info");
+infos.forEach(info => {
+  info.style.display = "flex";
+  info.style.flexDirection = "column"; // колонки для заголовків і значень
+  info.style.alignItems = "center";
+  info.style.padding = "4px";
+  info.style.fontSize = "12px";
+
+  const titles = info.querySelector(".info-titles");
+  const values = info.querySelector(".info-values");
+
+  // перша лінійка: заголовки
+  titles.style.display = "flex";
+  titles.style.justifyContent = "space-around";
+  titles.style.width = "100%";
+  titles.style.fontWeight = "bold"; // <-- жирний шрифт для заголовків
+
+
+  // друга лінійка: значення
+  values.style.display = "flex";
+  values.style.justifyContent = "space-around";
+  values.style.width = "100%";
+});
 
   newBox.refresh(); // оновлюємо екземпляр SimpleLightbox
 

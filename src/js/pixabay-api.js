@@ -5,12 +5,11 @@ import "izitoast/dist/css/iziToast.min.css";
 
 import axios from 'axios';
 
-axios .defaults.baseURL = 'https://pixabay.com/api/';
+axios.defaults.baseURL = 'https://pixabay.com/api/';
 
 function getImagesByQuery(query) {
   
- return axios({
-    method: 'get',
+ return axios.get('https://pixabay.com/api/', {
     params: {
       key: '54641961-e96e5217be963f5aab39f9ddc',
       q: query,
